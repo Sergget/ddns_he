@@ -1,0 +1,10 @@
+{
+    "dynUrl":"https://dyn.dns.he.net/nic/update?hostname=",
+    "TLD":"example.com",
+    "names":[
+        {
+            "name":"sub",
+            "key":"eXamPLe_kEY"
+        }
+    ]
+}
