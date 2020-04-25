@@ -1,6 +1,7 @@
 import requests
 import json
 import traceback
+from dns import resolver
 from datetime import datetime
 
 def obCurrentTime():
@@ -17,12 +18,16 @@ def check_ip():
 def update_dns_record(ip,conf):
     for sub in conf["names"]:
         if ip and sub["name"] and sub["key"]:
-            # print(conf["dynUrl"]+sub["name"]+"."+conf["TLD"]+"&password="+sub["key"]+"&myip="+ip)
-            r=requests.get(conf["dynUrl"]+sub["name"]+"."+conf["TLD"]+"&password="+sub["key"]+"&myip="+ip)
-            if r.text=="badauth":
-                raise ConnectionRefusedError("Auth failed for ["+sub["name"]+"]: "+r.text)
+            dnsRec=resolver.query(sub["name"]+"."+conf["TLD"],'A')[0].to_text()
+            if dnsRec !=ip:
+                # print(conf["dynUrl"]+sub["name"]+"."+conf["TLD"]+"&password="+sub["key"]+"&myip="+ip)
+                r=requests.get(conf["dynUrl"]+sub["name"]+"."+conf["TLD"]+"&password="+sub["key"]+"&myip="+ip)
+                if r.text=="badauth":
+                    raise ConnectionRefusedError("Auth failed for ["+sub["name"]+"]: "+r.text)
+                else:
+                    print(obCurrentTime()+r.text)
             else:
-                print(obCurrentTime()+r.text)
+                print("No need to change ip: "+dnsRec)
         elif not ip:
             raise ValueError("Empty IP!")
         else:
