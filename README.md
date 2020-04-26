@@ -3,8 +3,8 @@ ddns for Hurricane Electrics free DNS written in python
 
 ## 关于HE免费DNS
 
-Free DNS:[https://dns.he.net/](https://dns.he.net/)
-官方文档：[https://dns.he.net/docs.html](https://dns.he.net/docs.html)
+- Free DNS:[https://dns.he.net/](https://dns.he.net/)
+- 官方文档：[https://dns.he.net/docs.html](https://dns.he.net/docs.html)
 
 ## 基本实现
 这只是一个简单的动态更新HE上的dns记录的python脚本，目前功能只能一次性的查询已有的一个域名空间内的所有记录，并通过[https://www.ipify.org](https://www.ipify.org)查询本机公网IP地址，再通过和HE上的记录进行比对，如果不同，则更新，否则不进行任何操作。
